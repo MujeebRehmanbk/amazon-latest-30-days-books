@@ -5,7 +5,7 @@ from ..items import AmazonItem
 
 class AmaZonSpider(scrapy.Spider):
     name = 'fiver'
-    page_number = 2
+    page_number = 2  #you can start fro page_number = 0
     start_urls = [
         'https://www.amazon.com/s?bbn=283155&rh=n%3A283155%2Cp_n_publication_date%3A1250226011&dc&fst=as%3Aoff&qid=1591558402&rnid=1250225011&ref=lp_283155_nr_p_n_publication_date_0'
     ]
@@ -20,7 +20,7 @@ class AmaZonSpider(scrapy.Spider):
         
         for value in response.css(".sg-col-12-of-28 span.a-size-base+ .a-size-base::text").getall():
             author.append(" ".join(value.split()))
-        #author = response.css(".sg-col-12-of-28 span.a-size-base+ .a-size-base::text").getall()
+      
         
         price = response.css(".a-spacing-top-small .a-price-fraction , .a-spacing-top-small .a-price-whole").css("::text").extract()
         image_link = response.css(".s-image::attr(srcset)").extract()
@@ -30,7 +30,7 @@ class AmaZonSpider(scrapy.Spider):
         items["Author"] = author
         items["Price"] = price
         items["image_link"] = image_link
-        #items['books'] = books
+      
 
         yield items 
 
